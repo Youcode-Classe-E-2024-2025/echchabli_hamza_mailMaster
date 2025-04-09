@@ -13,6 +13,7 @@ class SubscriptionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:subscribers,email',
+            'name' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -21,6 +22,7 @@ class SubscriptionController extends Controller
 
         $subscriber = Subscriber::create([
             'email' => $request->email,
+            'name' => $request->name,
             'active' => true,
         ]);
 

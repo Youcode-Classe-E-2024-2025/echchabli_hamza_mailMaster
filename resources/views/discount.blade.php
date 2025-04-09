@@ -39,8 +39,8 @@
 <body>
     <div class="container">
         <h1>Exclusive Offer: {{ $discount }} OFF!</h1>
-        <p>Don't miss this opportunity to save on your favorite items.</p>
-        <p>{{ $message }}</p>
+        <p>{{$productName}} Don't miss this opportunity to save on your favorite items.</p>
+        <p>{{ $description }}</p>
         <a href="{{ $link }}">Shop Now</a>
     </div>
 </body>
