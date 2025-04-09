@@ -21,6 +21,9 @@
         h1 {
             color: #2c3e50;
         }
+        .bgP{
+            color: #333
+        }
         p {
             line-height: 1.6;
         }
@@ -41,6 +44,8 @@
         <p>We are excited to introduce our new product: <strong>{{ $productName }}</strong>!</p>
         <p>{{ $description }}</p>
         <a href="{{ $link }}">Check it out now!</a>
+     <div class="bgP">  here  <img src="http://127.0.0.1:8000/api/email-tracker/{{$userId }}/{{$campaignId }}" width="1" height="1" >
+</div>
     </div>
 </body>
 </html>

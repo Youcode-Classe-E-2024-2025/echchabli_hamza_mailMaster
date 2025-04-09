@@ -27,7 +27,7 @@ class CampaignSubscriberService
                 ->where('subscriber_id', $subscriber->id)
                 ->first();
 
-            if (!$existing) {
+            // if (!$existing) {
                 CampaignSubscriber::create([
                     'campaign_id' => $campaign->id,
                     'subscriber_id' => $subscriber->id,
@@ -44,11 +44,11 @@ class CampaignSubscriberService
                 // });
                 // return response()->json(['message' => 'qlllllllllller']);
                
-               return $this->sendEmail(['email'=>$subscriber->email , 'name' => $subscriber->name,'subject'=>$campaign->subject  ,'template' => $newsletter->template , 'description' => $newsletter->content ,'discount' => '60' ]);
+               return $this->sendEmail(['campaignId'=>$request['campaign_id'] ,'id'=> $subscriberData['id'],'email'=>$subscriber->email , 'name' => $subscriber->name,'subject'=>$campaign->subject  ,'template' => $newsletter->template , 'description' => $newsletter->content ,'discount' => '60' ]);
                
-            }else {
-                return response()->json(['message' => 'Subscriber already exists in the campaign.']);
-            }
+            // }else {
+            //     return response()->json(['message' => 'Subscriber already exists in the campaign.']);
+            // }
         }
 
         return response()->json(['message' => 'Subscribers processed and emails sent.']);
@@ -56,8 +56,10 @@ class CampaignSubscriberService
 
     private function sendEmail(array $data)
     {
-        // return response()->json(['message' => $data['template']]);
+
         Mail::send($data['template'], [
+            'userId'=>$data['id'] ?? 0,
+            'campaignId'=>$data['campaignId'] ?? 0,
             'discount' => $data['discount'] ?? 'opi',
             'productName' => $data['name'] ?? 'test',
             'description' => $data['description'] ?? '',
@@ -66,7 +68,6 @@ class CampaignSubscriberService
             $message->to($data['email'])
                     ->subject('🚀 ' . ($data['subject'] ?? 'Special Discount!'));
         });
-        
     }
     
 

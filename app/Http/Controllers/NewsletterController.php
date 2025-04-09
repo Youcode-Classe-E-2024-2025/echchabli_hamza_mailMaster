@@ -8,6 +8,9 @@ class NewsletterController extends Controller
 {
     public function create(Request $request)
     {
+
+        // return $request;
+
         $request->validate([
             'title' => 'required|string|unique:newsletters,title',
             'content' => 'required|string',
