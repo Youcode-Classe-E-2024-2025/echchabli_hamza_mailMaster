@@ -28,7 +28,7 @@ class CampaignSubscriberService
                 ->where('subscriber_id', $subscriber->id)
                 ->first();
 
-            // if (!$existing) {
+            if (!$existing) {
                 CampaignSubscriber::create([
                     'campaign_id' => $campaign->id,
                     'subscriber_id' => $subscriber->id,
@@ -47,9 +47,9 @@ class CampaignSubscriberService
                
                return $this->sendEmail(['campaignId'=>$request['campaign_id'] ,'id'=> $subscriberData['id'],'email'=>$subscriber->email , 'name' => $subscriber->name,'subject'=>$campaign->subject  ,'template' => $newsletter->template , 'description' => $newsletter->content ,'discount' => '60' ]);
                
-            // }else {
-            //     return response()->json(['message' => 'Subscriber already exists in the campaign.']);
-            // }
+            }else {
+                return response()->json(['message' => 'Subscriber already exists in the campaign.']);
+            }
         }
 
         return response()->json(['message' => 'Subscribers processed and emails sent.']);
@@ -68,7 +68,7 @@ class CampaignSubscriberService
             'description' => $data['description'] ?? '',
            
         ], function ($message) use ($data) {
-            Log::info('Email data:', $data);
+            // Log::info('Email data:', $data);
             $message->to($data['email'])
                     ->subject($data['subject'] ?? 'New Product');
         });

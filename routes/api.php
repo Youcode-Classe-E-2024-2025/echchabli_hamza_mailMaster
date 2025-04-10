@@ -39,4 +39,7 @@ use App\Http\Controllers\CampaignSubscriberController;
 Route::post('/campaigns/subscribe', [CampaignSubscriberController::class, 'subscribeToCampaign']);
 
 
+use App\Http\Controllers\EmailTrackerController;
 
+
+Route::post('/email-tracker',[EmailTrackerController::class, 'trackEmail'] );
