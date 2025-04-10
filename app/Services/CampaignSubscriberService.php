@@ -7,6 +7,7 @@ use App\Models\CampaignSubscriber;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class CampaignSubscriberService
 {
@@ -34,13 +35,13 @@ class CampaignSubscriberService
                     'opened' => false,
                 ]);
               
-                // Mail::send('discount', [
+                // Mail::send('new_product', [
                 //     'discount' => '50%',
                 //     'productName' => 'ker',
                 //     'description' => 'lzkjefz',
                 //     'link' => 'https://yourstore.com/products/magic-keyboard-x'
-                // ], function ($message) use ($subscriber) {
-                //     $message->to('achrafsikal@gmail.com')->subject('🚀 jzhez');
+                // ], function ($message)  {
+                //     $message->to('echchablihamza1@gmail.com')->subject('🚀 jzhez');
                 // });
                 // return response()->json(['message' => 'qlllllllllller']);
                
@@ -56,17 +57,20 @@ class CampaignSubscriberService
 
     private function sendEmail(array $data)
     {
+        
+
 
         Mail::send($data['template'], [
             'userId'=>$data['id'] ?? 0,
             'campaignId'=>$data['campaignId'] ?? 0,
             'discount' => $data['discount'] ?? 'opi',
-            'productName' => $data['name'] ?? 'test',
+            'productName' => $data['name'] ??'template',
             'description' => $data['description'] ?? '',
-            'link' => 'https://yourstore.com/products/magic-keyboard-x'
+           
         ], function ($message) use ($data) {
+            Log::info('Email data:', $data);
             $message->to($data['email'])
-                    ->subject('🚀 ' . ($data['subject'] ?? 'Special Discount!'));
+                    ->subject($data['subject'] ?? 'New Product');
         });
     }
     

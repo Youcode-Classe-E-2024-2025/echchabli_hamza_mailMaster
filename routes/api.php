@@ -40,14 +40,3 @@ Route::post('/campaigns/subscribe', [CampaignSubscriberController::class, 'subsc
 
 
 
-Route::get('/email-tracker/{subscriberId}/{campaignId}', function ($subscriberId, $campaignId) {
-    // return 'smrond';
-    \App\Models\CampaignSubscriber::where('subscriber_id', $subscriberId)
-        ->where('campaign_id', $campaignId)
-        ->update(['opened' => true , 'opened_at' => '04 : 08 : 2000' ]);
-        
-
-    $pixel = base64_decode('R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='); 
-    return response($pixel, 200)
-        ->header('Content-Type', 'image/gif');
-});

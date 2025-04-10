@@ -41,9 +41,8 @@
         <h1>Exclusive Offer: {{ $discount }} OFF!</h1>
         <p>{{$productName}} Don't miss this opportunity to save on your favorite items.</p>
         <p>{{ $description }}</p>
-        <a href="{{ $link }}">Shop Now</a>
-        <img src="{{ url('/email-tracker/' . $userId . '/' . $campaignId) }}" width="1" height="1" style="display:none;">
-
+        <a href="">Shop Now</a>
+       
     </div>
 </body>
 </html>

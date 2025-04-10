@@ -43,9 +43,9 @@
         <h1>{{ $productName }}</h1>
         <p>We are excited to introduce our new product: <strong>{{ $productName }}</strong>!</p>
         <p>{{ $description }}</p>
-        <a href="{{ $link }}">Check it out now!</a>
-     <div class="bgP">  here  <img src="http://127.0.0.1:8000/api/email-tracker/{{$userId }}/{{$campaignId }}" width="1" height="1" >
-</div>
+        <a href=>Check it out now!</a>
+        {{-- <img src="https://3d33-197-230-250-154.ngrok-free.app/api/email-tracker/6/2" width="1" height="1" /> --}}
+    </div>
     </div>
 </body>
 </html>
