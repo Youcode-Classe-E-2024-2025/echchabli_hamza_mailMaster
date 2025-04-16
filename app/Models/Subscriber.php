@@ -9,7 +9,7 @@ class Subscriber extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['email', 'is_active'];
+    protected $fillable = ['email', 'name', 'is_active'];
 
     public function campaigns()
     {

@@ -11,7 +11,7 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 
 
 use App\Http\Controllers\SubscriptionController;
-
+ 
 Route::post('/subscribe', [SubscriptionController::class, 'addSub']);
 Route::post('/unsubscribe', [SubscriptionController::class, 'cancelSub']);
 Route::get('/subscribers', [SubscriptionController::class, 'getAllSub']);

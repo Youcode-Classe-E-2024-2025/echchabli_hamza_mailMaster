@@ -6,17 +6,26 @@ use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class SubscriptionController extends Controller
 {
     public function addSub(Request $request)
     {
+
+        
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:subscribers,email',
             'name' => 'required|string'
         ]);
 
+
+        
+
+
         if ($validator->fails()) {
+            logger()->error('Validation failed', ['errors' => $validator->errors()]);
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
@@ -25,6 +34,10 @@ class SubscriptionController extends Controller
             'name' => $request->name,
             'active' => true,
         ]);
+        
+
+
+
 
         return response()->json(['message' => 'Subscribed successfully', 'data' => $subscriber], 201);
     }
