@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
-
+use Log;
 class NewsletterController extends Controller
 {
     public function create(Request $request)
@@ -11,12 +11,17 @@ class NewsletterController extends Controller
 
         // return $request;
 
+        Log::info("input" , $request->all());
+
         $request->validate([
             'title' => 'required|string|unique:newsletters,title',
             'content' => 'required|string',
             'user_id' => 'required|exists:users,id',
             'template' => 'required|in:new_product,discount',
         ]);
+  
+       
+
 
         $newsletter = Newsletter::create([
             'title' => $request->title,

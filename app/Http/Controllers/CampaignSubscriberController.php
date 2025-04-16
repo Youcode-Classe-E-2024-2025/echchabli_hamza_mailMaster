@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Facades\Log;
+
 class CampaignSubscriberController extends Controller
 {
     protected $service;
@@ -24,16 +26,20 @@ class CampaignSubscriberController extends Controller
     
     public function subscribeToCampaign(Request $request)
     {
+
+        log::info("input" , $request->all());
         
+
+
 
        
         $validator = Validator::make($request->all(), [
             'campaign_id' => 'required|exists:campaigns,id',
             'subscribers' => 'required|array',
             'subscribers.*.id' => 'required|exists:subscribers,id',
-            'subscribers.*.email' => 'required|email',
-            'subscribers.*.name' => 'required|string',
+            
         ]);
+        
 
 
     //  return  $validator['campaign_id'];
@@ -50,6 +56,22 @@ class CampaignSubscriberController extends Controller
 
     }
 
+
+
+    public function getCampaignSubscribers($campaignId){
+
+
+        $campaign = Campaign::find($campaignId);
+        if (!$campaign) {
+            return response()->json(['message' => 'Campaign not found'], 404);
+        }
+        $subscribers = $campaign->subscribers;
+        return response()->json($subscribers);
+        
+
+
+
+    }
 
 
 

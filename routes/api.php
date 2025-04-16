@@ -39,6 +39,12 @@ use App\Http\Controllers\CampaignSubscriberController;
 Route::post('/campaigns/subscribe', [CampaignSubscriberController::class, 'subscribeToCampaign']);
 
 
+
+
+Route::get('/campaigns/emails/{id}', [CampaignSubscriberController::class, 'getCampaignSubscribers']);
+
+
+
 use App\Http\Controllers\EmailTrackerController;
 
 

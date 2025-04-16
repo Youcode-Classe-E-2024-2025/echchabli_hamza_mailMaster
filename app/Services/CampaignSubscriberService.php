@@ -7,7 +7,7 @@ use App\Models\CampaignSubscriber;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+
 
 class CampaignSubscriberService
 {
@@ -21,6 +21,8 @@ class CampaignSubscriberService
         $newsletter = $campaign->newsletter;
         // return $newsletter->template;
 
+
+
         foreach ($request['subscribers'] as $subscriberData) {
             $subscriber = Subscriber::find($subscriberData['id']);
 
@@ -29,11 +31,14 @@ class CampaignSubscriberService
                 ->first();
 
             if (!$existing) {
-                CampaignSubscriber::create([
+               $res= CampaignSubscriber::create([
                     'campaign_id' => $campaign->id,
                     'subscriber_id' => $subscriber->id,
                     'opened' => false,
                 ]);
+
+
+
               
                 // Mail::send('new_product', [
                 //     'discount' => '50%',
@@ -45,10 +50,8 @@ class CampaignSubscriberService
                 // });
                 // return response()->json(['message' => 'qlllllllllller']);
                
-              return $this->sendEmail(['campaignId'=>$request['campaign_id'] ,'id'=> $subscriberData['id'],'email'=>$subscriber->email , 'name' => $subscriber->name,'subject'=>$campaign->subject  ,'template' => $newsletter->template , 'description' => $newsletter->content ,'discount' => '60' ]);
+               $this->sendEmail(['campaignId'=>$request['campaign_id'] ,'id'=> $subscriberData['id'],'email'=>$subscriber->email , 'name' => $subscriber->name,'subject'=>$campaign->subject  ,'template' => $newsletter->template , 'description' => $newsletter->content ,'discount' => '60' ]);
                
-            }else {
-                return response()->json(['message' => 'Subscriber already exists in the campaign.']);
             }
         }
 
