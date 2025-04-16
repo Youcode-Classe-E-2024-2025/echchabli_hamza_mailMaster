@@ -8,6 +8,8 @@ export default function Dash() {
   const [subscribers, setSubscribers] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
 
+  const[emailLoding , setEmailLoding] = useState(false);
+
   
   // States for creating newsletters
   const [title, setTitle] = useState("");
@@ -34,7 +36,7 @@ export default function Dash() {
     console.log("Fetching subscribers for campaign ID:", campaignId);
     
     try {
-      
+
       // setLoading(true);
 
       const res = await fetch(`http://127.0.0.1:8000/api/campaigns/emails/${campaignId}`);
@@ -50,10 +52,15 @@ export default function Dash() {
       console.log(res);
       
       const data = await res.json();
+      console.log(data);
+      
       
       setSubscribersEmails(data);
 
-      setLoading(true)
+      console.log(subscribersEmails , "subscribersEmails");
+      
+       
+      setEmailLoding(true);
 
     } catch (err) {
       console.error("Failed to fetch subscribers", err);
@@ -85,7 +92,6 @@ export default function Dash() {
       setSubscribers(subscribersRes);
       setCampaigns(campaignsRes);
     } catch (error) {
-      showNotification("Failed to load data. Please try again.", "error");
     } finally {
       setIsLoading(false);
     }
@@ -136,7 +142,7 @@ export default function Dash() {
       setNewsletterId("");
       fetchData();
     } catch (error) {
-      showNotification("Failed to create campaign. Please try again.", "error");
+
     } finally {
       setIsLoading(false);
     }
@@ -609,7 +615,7 @@ export default function Dash() {
                      Subscribers for Campaign #{activeTab}
                    </h2>
          
-                   {loading ? (
+                   {emailLoding ? (
                      <p className="p-6 text-gray-500">Loading...</p>
                    ) : subscribers.length === 0 ? (
                      <p className="p-6 text-gray-500">No subscribers yet.</p>
@@ -629,7 +635,7 @@ export default function Dash() {
                                <td className="px-6 py-4 whitespace-nowrap">{sub.name}</td>
                                <td className="px-6 py-4 whitespace-nowrap">{sub.email}</td>
                                <td className="px-6 py-4 whitespace-nowrap">
-                                 {sub.opened ? (
+                                 {sub.pivot.opened ? (
                                    <span className="text-green-600">✅ Opened</span>
                                  ) : (
                                    <span className="text-gray-500">❌ Not Opened</span>
