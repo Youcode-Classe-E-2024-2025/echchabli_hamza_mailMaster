@@ -1,15 +1,30 @@
+import React from 'react';
+import Header from './assets/components/Header';
 
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-function App() {
- 
-  
+
+const App = () => {
+  console.log('App component is being rendered')
   return (
-    <div className="text-3xl text-blue-500 font-bold">
-  Tailwind is working!
-</div>
+    <Router>
+      <Header /> 
+      <div>normal text</div>
+      <Routes>
+        <Route path="/" element />
 
-  )
-}
+        <Route path="/Dash" element />
 
-export default App
+
+        <Route path="/details/:id" element />
+
+
+
+        <Route path="/login" element />
+      </Routes>
+    </Router>
+  );
+};
+
+
+export default App;
